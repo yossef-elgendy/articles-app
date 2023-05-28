@@ -1,0 +1,103 @@
+# Laravel specific
+.env.backup
+.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+npm-debug.log
+
+# Composer packages
+/vendor/
+
+# Application specific
+/public/storage/
+/public/hot/
+/storage/*.key
+/storage/logs/
+/storage/framework/cache/
+/storage/framework/sessions/
+/storage/framework/testing/
+/storage/framework/views/
+/storage/app/*.key
+/bootstrap/cache/
+
+# IDE and editor files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Mac OS
+.DS_Store
+
+# Database
+/database/*.sqlite
+/database/*.sqlite3
+/database/*.sql
+*.sql
+
+# Testing
+/tests/tmp/
+/tests/behat/tmp/
+/tests/behat/node_modules/
+
+# Misc
+/.phpintel/
+/.vagrant/
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log
+yarn.lock
+Mix-manifest.json
+mix-manifest.json
+/public/mix-manifest.json
+
+# Compiled assets
+/public/css/
+/public/js/
+/public/hot/
+/public/fonts/
+/public/images/
+/public/*.ico
+/public/*.png
+/public/*.jpg
+/public/*.jpeg
+/public/*.gif
+/public/*.svg
+/public/*.webp
+
+# Logs
+/storage/logs/*.log
+/logs/*.log
+
+# Cache
+/bootstrap/cache/*.php
+
+# Local development environment
+/.env.local
+/.env.*.local
+
+# Homestead/Vagrant
+/.homestead
+
+# Laravel Dusk
+/chrome-driver/
+
+# Laravel Passport
+/storage/oauth-private.key
+/storage/oauth-public.key
+
+# Laravel Echo
+/broadcasting/
+
+# Valet
+/.valet
+
+# Deployer
+/.dep/
+/.deployer/
+/dep.*
+
+# PHPStorm
+.phpstorm.meta.php
+/.phpstorm.meta.php

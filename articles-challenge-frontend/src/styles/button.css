@@ -1,0 +1,36 @@
+/* Global Button Styling */
+.button,
+.cta-btn,
+.hero-cta-btn {
+    padding: 10px 20px;
+    background-color: #A4D0A4;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* Apply Theme-specific Styles */
+.theme-dark .button {
+    background-color: #333333;
+}
+
+.theme-light .button {
+    background-color: #f0f0f0;
+    color: #333333;
+}
+
+/* Hover Effect */
+.button:hover,
+.cta-btn:hover,
+.hero-cta-btn:hover {
+    background-color: #afcaaf;
+}
+
+/* Click Effect */
+.button:active,
+.cta-btn:active,
+.hero-cta-btn:active {
+    background-color: #afcaaf;
+}

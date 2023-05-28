@@ -1,0 +1,25 @@
+.features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    padding: 50px;
+}
+
+.feature {
+    background: rgb(255,248,214);
+    background: linear-gradient(4deg, rgba(255,248,214,1) 20%, rgba(247,225,174,1) 57%);
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.feature-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.feature-description {
+    font-size: 16px;
+}
