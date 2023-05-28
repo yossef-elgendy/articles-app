@@ -6,10 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\User\RegisterRequest;
 use App\Http\Resources\User\UserDataResource;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -50,15 +48,8 @@ class AuthController extends Controller
 
     public function register(RegisterRequest $request)
     {
+        dd($request);
         try {
-            $validator = Validator::make($request->all(), $request->rules());
-
-            if ($validator->fails()) {
-                return response()->json([
-                    'errors' => Arr::flatten($validator->getMessageBag()),
-                ],  Response::HTTP_BAD_REQUEST);
-            }
-
             $user = User::create([
                 'username' => $request->input('username'),
                 'email' => $request->input('email'),
@@ -77,9 +68,8 @@ class AuthController extends Controller
             ], Response::HTTP_CREATED);
         } catch (\Exception $e) {
             return response()->json([
-                'errors' => [$e->getMessage()],
-                'status' => Response::HTTP_NOT_FOUND
-            ]);
+                'errors' => [$e->getMessage()]
+            ], Response::HTTP_NOT_FOUND);
         }
     }
 }

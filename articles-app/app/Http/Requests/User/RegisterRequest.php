@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Http\Requests\User;
-use Illuminate\Support\Facades\Hash;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Symfony\Component\HttpFoundation\Response;
 
 class RegisterRequest extends FormRequest
 {
@@ -32,5 +34,11 @@ class RegisterRequest extends FormRequest
             'authors' => 'nullable|string',
             'categories' => 'nullable|string'
         ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json(['errors' => $validator->errors()],
+            Response::HTTP_BAD_REQUEST));
     }
 }
