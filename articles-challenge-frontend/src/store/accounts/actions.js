@@ -7,10 +7,41 @@ export const SAVE_CUSTOMER_FAILURE = 'SAVE_CUSTOMER_FAILURE';
 export const LOGOUT_CUSTOMER_SUCCESS = 'LOGOUT_CUSTOMER_SUCCESS';
 export const LOGOUT_CUSTOMER_FAILURE = 'LOGOUT_CUSTOMER_FAILURE';
 export const FETCH_DATA_REQUEST = 'FETCH_DATA_REQUEST';
+export const UPDATE_USER_REQUEST = 'UPDATE_USER_REQUEST';
+export const UPDATE_USER_SUCCESS = 'UPDATE_USER_SUCCESS';
+export const UPDATE_USER_FAILURE = 'UPDATE_USER_FAILURE';
+
 const API_URL = import.meta.env.VITE_API_URL;
 const API_REGISTER = import.meta.env.VITE_REGISTER_API;
 const API_LOGIN = import.meta.env.VITE_LOGIN_API;
 const API_LOGOUT = import.meta.env.VITE_LOGOUT_API
+
+export const updateUser = (userId, userData) => {
+  return async (dispatch) => {
+    dispatch(updateUserRequest());
+
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      const response = await axios.put(`/api/users/${userId}`, userData);
+      const updatedUser = response.data;
+
+      dispatch(updateUserSuccess(updatedUser));
+      dispatch(addNotification({
+        id: Math.floor(Math.random() * 100),
+        message: 'User profile updated successfully.',
+        type: 'success'
+      }));
+    } catch (error) {
+      dispatch(updateUserFailure(error.message));
+      dispatch(addNotification({
+        id: Math.floor(Math.random() * 100),
+        message: 'Failed to update user profile.',
+        type: 'danger'
+      }));
+    }
+  };
+};
 
 export const logoutCustomer = (token) => {
   return async (dispatch) => {
@@ -139,3 +170,16 @@ export const logoutCustomerFailure = (error) => ({
   payload: error
 });
 
+export const updateUserRequest = () => ({
+  type: UPDATE_USER_REQUEST,
+});
+
+export const updateUserSuccess = (user) => ({
+  type: UPDATE_USER_SUCCESS,
+  payload: user,
+});
+
+export const updateUserFailure = (error) => ({
+  type: UPDATE_USER_FAILURE,
+  payload: error,
+});

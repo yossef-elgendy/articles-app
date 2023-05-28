@@ -4,7 +4,10 @@ import {
     SAVE_CUSTOMER_FAILURE ,
     LOGOUT_CUSTOMER_SUCCESS,
     LOGOUT_CUSTOMER_FAILURE,
-    FETCH_DATA_REQUEST
+    FETCH_DATA_REQUEST,
+    UPDATE_USER_FAILURE,
+    UPDATE_USER_REQUEST,
+    UPDATE_USER_SUCCESS
   } from './actions';
 
 const initialState = {
@@ -17,6 +20,7 @@ const initialState = {
 const accountsReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_DATA_REQUEST:
+    case UPDATE_USER_REQUEST:
       return {
         ...state,
         loading: true, // Set loading state to true when the request is made
@@ -28,6 +32,7 @@ const accountsReducer = (state = initialState, action) => {
         loading: false
       };
     case SAVE_CUSTOMER_SUCCESS:
+    case UPDATE_USER_SUCCESS:
       return {
         ...state,
         savedCustomer: action.payload,
@@ -35,6 +40,8 @@ const accountsReducer = (state = initialState, action) => {
         loading: false
       };
     case SAVE_CUSTOMER_FAILURE:
+    case UPDATE_USER_FAILURE:
+    case LOGOUT_CUSTOMER_FAILURE:
       return {
         ...state,
         savedCustomer: null,
@@ -48,14 +55,6 @@ const accountsReducer = (state = initialState, action) => {
         profileToken: null,
         loading: false
       };
-    case LOGOUT_CUSTOMER_FAILURE:
-      return {
-        ...state,
-        savedCustomer: null,
-        profileToken: null,
-        customerErrors: [action.payload],
-        loading: false
-      }
     default:
       return state;
   }
