@@ -9,9 +9,8 @@ const Header = () => {
   const username = useSelector(state => state.user.savedCustomer?.username); // Access the username from the savedCustomer object
   const dispatch = useDispatch();
 
-  const handleLogout = async () => {
-    const { message } = await dispatch(logoutCustomer(token));
-    console.log(message);
+  const handleLogout = () => {
+    dispatch(logoutCustomer(token));
   }
 
   useEffect(() => {

@@ -39,8 +39,7 @@ const LoginForm = () => {
         });
         setFormErrors({});
       } catch (error) {
-        // Handling Error
-        console.log('Error logging in:', error.message);
+        return;
       }
     } else {
       setFormErrors(errors);
