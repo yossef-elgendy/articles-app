@@ -62,7 +62,7 @@ const LoginForm = () => {
       if (token) {
         navigate('/', { replace: true })
       }
-    }, []);
+    }, [token]);
 
   return (
     <div className="login-form">

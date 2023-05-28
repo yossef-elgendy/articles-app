@@ -43,7 +43,6 @@ const RegistrationForm = () => {
       });
 
       setFormErrors({});
-      navigate('/', { replace: true });
     } else {
       setFormErrors(errors);
     }
@@ -83,7 +82,7 @@ const RegistrationForm = () => {
     if (token) {
       navigate('/', { replace: true })
     }
-  }, []);
+  }, [token]);
 
   return (
     <div className="registration-form">

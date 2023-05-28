@@ -1,13 +1,16 @@
 import { useEffect } from 'react';
 import './Header.css';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { logoutCustomer } from '../../store/accounts/actions';
 
 const Header = () => {
   const token = useSelector(state => state.user.profileToken);
+  const dispatch = useDispatch();
 
-  const handleLogout = () => {
-
+  const handleLogout = async () => {
+    const { message } = await dispatch(logoutCustomer(token));
+    console.log(message);
   }
 
   useEffect(() => {
