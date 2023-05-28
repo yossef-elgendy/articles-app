@@ -4,13 +4,14 @@ import { Provider } from 'react-redux';
 import store, { persistor } from './store';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { PersistGate } from 'redux-persist/integration/react';
-
-import './styles/button.css';
-import './App.css';
 import Home from './pages/Home/Home';
 import RegisterPage from './pages/RegisterPage/RegisterPage';
 import LoginPage from './pages/LoginPage/LoginPage';
-import NotFoundPage from './pages/NotFoundPage/NotFoundPage'
+import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
+
+import './styles/button.css';
+import './App.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 const App = () => {
   return (

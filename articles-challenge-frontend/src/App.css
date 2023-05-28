@@ -1,3 +1,5 @@
+@import 'bootstrap/dist/css/bootstrap.css';
+
 /* Global Styles */
 body {
   margin: 0;
@@ -8,7 +10,7 @@ body {
 }
 
 main {
-  min-height: 79vh;
+  min-height: 85.3vh;
   height: auto;
   background: rgb(141,144,141);
   background: linear-gradient(4deg, rgba(141,144,141,1) 20%, rgba(231,240,227,1) 57%);
