@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { addNotification } from '../notifications/actions';
 
 export const SET_PROFILE_TOKEN = 'SET_PROFILE_TOKEN';
 export const SAVE_CUSTOMER_SUCCESS = 'SAVE_CUSTOMER_SUCCESS';
@@ -26,12 +27,23 @@ export const logoutCustomer = (token) => {
       const { data: { message } } = await axios.post(`${API_URL}${API_LOGOUT}`, null, config);
       // Assuming the response contains logout success message or any other relevant data
       dispatch(logoutCustomerSuccess());
+      dispatch(addNotification({
+        id: Math.floor(Math.random() * 100),
+        message,
+        type: 'success'
+      }));
 
       return {
         message
       };
     } catch (error) {
       dispatch(logoutCustomerFailure(error.message));
+      dispatch(addNotification({
+        id: Math.floor(Math.random() * 100),
+        message: error.message,
+        type: 'danger'
+      }));
+
       throw error;
     }
   };
@@ -48,13 +60,23 @@ export const saveCustomer = (customerData) => {
 
       dispatch(saveCustomerSuccess(user));
       dispatch(setProfileToken(access_token));
+      dispatch(addNotification({
+        id: Math.floor(Math.random() * 100),
+        message: 'You have created an account successfully.',
+        type: 'success'
+      }));
 
       return { status: true, errors: {} };
     } catch (error) {
       const { response: { data: { errors = {} } = {} } = {} } = error;
-      console.log(errors);
 
       dispatch(saveCustomerFailure(errors));
+      dispatch(addNotification({
+        id: Math.floor(Math.random() * 100),
+        message: 'Something went wrong please try again following the hints.',
+        type: 'danger'
+      }));
+
       return { status: false, errors };
     }
   };
@@ -71,9 +93,21 @@ export const loginCustomer = (formData) => {
 
       dispatch(saveCustomerSuccess(user));
       dispatch(setProfileToken(access_token));
+      dispatch(addNotification({
+        id: Math.floor(Math.random() * 100),
+        message: 'You have logged in successfully.',
+        type: 'success'
+      }));
+
       return { payload: { user, access_token } };
     } catch (error) {
       dispatch(saveCustomerFailure(error.message));
+      dispatch(addNotification({
+        id: Math.floor(Math.random() * 100),
+        message: error.message,
+        type: 'danger'
+      }));
+
       throw error;
     }
   };

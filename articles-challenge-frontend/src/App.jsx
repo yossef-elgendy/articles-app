@@ -11,6 +11,7 @@ import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
 import './styles/button.css';
 import './App.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import NotificationList from './components/NotificationList/NotificationList';
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
           <div className="app">
             <Header />
               <main className='content' >
+                <NotificationList />
                 <Routes>
                   <Route path="/" element={<Home />} />
                   <Route path="/register" element={<RegisterPage />} />
