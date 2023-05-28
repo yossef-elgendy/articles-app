@@ -3,18 +3,48 @@ import axios from 'axios';
 export const SET_PROFILE_TOKEN = 'SET_PROFILE_TOKEN';
 export const SAVE_CUSTOMER_SUCCESS = 'SAVE_CUSTOMER_SUCCESS';
 export const SAVE_CUSTOMER_FAILURE = 'SAVE_CUSTOMER_FAILURE';
+export const LOGOUT_CUSTOMER_SUCCESS = 'LOGOUT_CUSTOMER_SUCCESS';
+export const LOGOUT_CUSTOMER_FAILURE = 'LOGOUT_CUSTOMER_FAILURE';
+export const FETCH_DATA_REQUEST = 'FETCH_DATA_REQUEST';
 const API_URL = import.meta.env.VITE_API_URL;
 const API_REGISTER = import.meta.env.VITE_REGISTER_API;
 const API_LOGIN = import.meta.env.VITE_LOGIN_API;
+const API_LOGOUT = import.meta.env.VITE_LOGOUT_API
+
+export const logoutCustomer = (token) => {
+  return async (dispatch) => {
+    dispatch({ type: FETCH_DATA_REQUEST }); // Dispatch the loading action
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      };
+
+      const { data: { message } } = await axios.post(`${API_URL}${API_LOGOUT}`, null, config);
+      // Assuming the response contains logout success message or any other relevant data
+      dispatch(logoutCustomerSuccess());
+
+      return {
+        message
+      };
+    } catch (error) {
+      dispatch(logoutCustomerFailure(error.message));
+      throw error;
+    }
+  };
+};
 
 export const saveCustomer = (customerData) => {
   return async (dispatch) => {
+    dispatch({ type: FETCH_DATA_REQUEST }); // Dispatch the loading action
     try {
-      const response = await axios.post(`${API_URL}${API_REGISTER}`, customerData);
-      // Assuming the response contains the saved customer data + token + and if there was any error in validation found
-      const { data: { user, access_token, errors } } = response.data;
+      await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      console.log(response.data);
+      const { data: { user, access_token, errors } } = await axios.post(`${API_URL}${API_REGISTER}`, customerData);
+      // Assuming the response contains the saved customer data + token + and if there was any error in validation found
       if (errors) {
         dispatch(saveCustomerFailure(errors));
         return
@@ -34,7 +64,10 @@ export const saveCustomer = (customerData) => {
 
 export const loginCustomer = (formData) => {
   return async (dispatch) => {
+    dispatch({ type: FETCH_DATA_REQUEST }); // Dispatch the loading action
     try {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
       const response = await axios.post(`${API_URL}${API_LOGIN}`, formData);
       const { user, access_token } = response.data;
 
@@ -62,3 +95,13 @@ export const saveCustomerFailure = (error) => ({
   type: SAVE_CUSTOMER_FAILURE,
   payload: error
 });
+
+export const logoutCustomerSuccess = () => ({
+  type: LOGOUT_CUSTOMER_SUCCESS
+});
+
+export const logoutCustomerFailure = (error) => ({
+  type: LOGOUT_CUSTOMER_FAILURE,
+  payload: error
+});
+

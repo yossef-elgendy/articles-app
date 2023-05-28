@@ -8,7 +8,6 @@ import Home from './pages/Home/Home';
 import RegisterPage from './pages/RegisterPage/RegisterPage';
 import LoginPage from './pages/LoginPage/LoginPage';
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
-
 import './styles/button.css';
 import './App.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
@@ -20,14 +19,14 @@ const App = () => {
         <Router>
           <div className="app">
             <Header />
-            <main className='content' >
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/register" element={<RegisterPage />} />
-                <Route path="/login" element={<LoginPage />} />
-                <Route path="*" element={<NotFoundPage />} />
-              </Routes>
-            </main>
+              <main className='content' >
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/register" element={<RegisterPage />} />
+                  <Route path="/login" element={<LoginPage />} />
+                  <Route path="*" element={<NotFoundPage />} />
+                </Routes>
+              </main>
             <Footer />
           </div>
         </Router>

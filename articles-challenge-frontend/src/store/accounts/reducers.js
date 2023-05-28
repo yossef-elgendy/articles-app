@@ -1,30 +1,61 @@
-import { SET_PROFILE_TOKEN, SAVE_CUSTOMER_SUCCESS, SAVE_CUSTOMER_FAILURE } from './actions';
+import {
+    SET_PROFILE_TOKEN,
+    SAVE_CUSTOMER_SUCCESS,
+    SAVE_CUSTOMER_FAILURE ,
+    LOGOUT_CUSTOMER_SUCCESS,
+    LOGOUT_CUSTOMER_FAILURE,
+    FETCH_DATA_REQUEST
+  } from './actions';
 
 const initialState = {
   profileToken: null,
   savedCustomer: null,
-  saveCustomerErrors: [] // Corrected property name
+  customerErrors: [],
+  loading: false
 };
 
 const accountsReducer = (state = initialState, action) => {
   switch (action.type) {
+    case FETCH_DATA_REQUEST:
+      return {
+        ...state,
+        loading: true, // Set loading state to true when the request is made
+      };
     case SET_PROFILE_TOKEN:
       return {
         ...state,
-        profileToken: action.payload
+        profileToken: action.payload,
+        loading: false
       };
     case SAVE_CUSTOMER_SUCCESS:
       return {
         ...state,
         savedCustomer: action.payload,
-        saveCustomerErrors: [] // Corrected property name
+        customerErrors: [],
+        loading: false
       };
     case SAVE_CUSTOMER_FAILURE:
       return {
         ...state,
         savedCustomer: null,
-        saveCustomerErrors: action.payload // Corrected property name
+        customerErrors: [action.payload],
+        loading: false
       };
+    case LOGOUT_CUSTOMER_SUCCESS:
+      return {
+        ...state,
+        savedCustomer: null,
+        profileToken: null,
+        loading: false
+      };
+    case LOGOUT_CUSTOMER_FAILURE:
+      return {
+        ...state,
+        savedCustomer: null,
+        profileToken: null,
+        customerErrors: [action.payload],
+        loading: false
+      }
     default:
       return state;
   }
