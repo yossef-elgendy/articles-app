@@ -43,21 +43,19 @@ export const saveCustomer = (customerData) => {
     try {
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      const { data: { user, access_token, errors } } = await axios.post(`${API_URL}${API_REGISTER}`, customerData);
-      // Assuming the response contains the saved customer data + token + and if there was any error in validation found
-      if (errors) {
-        dispatch(saveCustomerFailure(errors));
-        return
-      }
+      const { data: { user, access_token } } = await axios.post(`${API_URL}${API_REGISTER}`, customerData);
+      // Assuming the response contains the saved customer data + token
 
       dispatch(saveCustomerSuccess(user));
       dispatch(setProfileToken(access_token));
+
+      return { status: true, errors: {} };
     } catch (error) {
-      // Handle any error that occurred during the API call
-      dispatch(saveCustomerFailure(error.message));
-      return {
-        error: error.message,
-      }
+      const { response: { data: { errors = {} } = {} } = {} } = error;
+      console.log(errors);
+
+      dispatch(saveCustomerFailure(errors));
+      return { status: false, errors };
     }
   };
 };

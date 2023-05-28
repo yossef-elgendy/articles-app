@@ -10,6 +10,7 @@ const LoginForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const token = useSelector(state => state.user.profileToken);
+  const loading = useSelector(state => state.user.loading)
 
 
   const [formData, setFormData] = useState({
@@ -76,8 +77,8 @@ const LoginForm = () => {
           value={formData.email}
           onChange={handleChange}
           error={formErrors.email}
+          disabled={loading}
         />
-
         <FormInput
           label="Password"
           type="password"
@@ -86,9 +87,11 @@ const LoginForm = () => {
           value={formData.password}
           onChange={handleChange}
           error={formErrors.password}
+          disabled={loading}
         />
-
-        <button type="submit">Login</button>
+        <button type="submit" disabled={loading}>
+          { loading ? '...Loading' : 'Login' }
+        </button>
       </form>
     </div>
   );

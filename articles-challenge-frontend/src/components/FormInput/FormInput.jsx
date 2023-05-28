@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-const FormInput = ({ label, type, id, name, value, onChange, error }) => {
+const FormInput = ({ label, type, id, name, value, onChange, error, disabled }) => {
   return (
     <div className="form-group">
       <label htmlFor={id}>{label}:</label>
@@ -11,6 +11,7 @@ const FormInput = ({ label, type, id, name, value, onChange, error }) => {
         value={value}
         onChange={onChange}
         required
+        disabled={disabled}
       />
       {error && <span className="error">{error}</span>}
     </div>
@@ -24,6 +25,7 @@ FormInput.propTypes = {
   name: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
+  disabled: PropTypes.bool,
   error: PropTypes.string
 };
 

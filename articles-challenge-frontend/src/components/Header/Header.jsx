@@ -6,6 +6,7 @@ import { logoutCustomer } from '../../store/accounts/actions';
 
 const Header = () => {
   const token = useSelector(state => state.user.profileToken);
+  const username = useSelector(state => state.user.savedCustomer?.username); // Access the username from the savedCustomer object
   const dispatch = useDispatch();
 
   const handleLogout = async () => {
@@ -51,37 +52,39 @@ const Header = () => {
                 Articles
               </Link>
             </li>
-            {
-              !token ? (
-                <>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/login">
-                      Login
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/register">
-                      Register
-                    </Link>
-                  </li>
-                </>
-              ) :  (
-                <>
+            {!token ? (
+              <>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/login">
+                    Login
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/register">
+                    Register
+                  </Link>
+                </li>
+              </>
+            ) : (
+              <>
                 <li className="nav-item">
                   <Link className="nav-link" to="/profile">
                     My Profile
                   </Link>
                 </li>
                 <li className="nav-item" onClick={ handleLogout }>
-                  <Link className="nav-link">
-                    Logout
-                  </Link>
+                  <Link className="nav-link">Logout</Link>
                 </li>
               </>
-              )
-
-            }
+            )}
           </ul>
+          {token && (
+            <ul className="navbar-nav ml-auto">
+              <li className="nav-item">
+                <span className="nav-link">Welcome, { username }</span>
+              </li>
+            </ul>
+          )}
         </div>
       </nav>
     </header>

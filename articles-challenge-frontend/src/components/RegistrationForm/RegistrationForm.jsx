@@ -8,7 +8,7 @@ import { saveCustomer } from '../../store/accounts/actions';
 
 const RegistrationForm = () => {
   const dispatch = useDispatch();
-
+  const { loading } = useSelector(state => state.user);
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -28,21 +28,23 @@ const RegistrationForm = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const errors = validateForm();
     if (Object.keys(errors).length === 0) {
       // Dispatch the saveCustomer action with the formData and profileToken
-      dispatch(saveCustomer(formData));
+      const { status, errors } =  await dispatch(saveCustomer(formData));
       // Reset form fields
-      setFormData({
-        username: '',
-        email: '',
-        password: '',
-        password_confirmation: ''
-      });
+      if (status) {
+        setFormData({
+          username: '',
+          email: '',
+          password: '',
+          password_confirmation: ''
+        });
+      }
 
-      setFormErrors({});
+      setFormErrors(errors);
     } else {
       setFormErrors(errors);
     }
@@ -53,20 +55,20 @@ const RegistrationForm = () => {
   const validateForm = () => {
     const errors = {};
     if (!formData.username.trim()) {
-      errors.username = 'Username is required';
+      errors.username = ['Username is required'];
     }
     if (!formData.email.trim()) {
-      errors.email = 'Email is required';
+      errors.email = ['Email is required'];
     } else if (!isValidEmail(formData.email)) {
-      errors.email = 'Invalid email format';
+      errors.email = ['Invalid email format'];
     }
     if (!formData.password.trim()) {
-      errors.password = 'Password is required';
+      errors.password = ['Password is required'];
     } else if (formData.password.length < 6) {
-      errors.password = 'Password must be at least 6 characters long';
+      errors.password = ['Password must be at least 6 characters long'];
     }
     if (formData.password !== formData.password_confirmation) {
-      errors.confirmPassword = 'Passwords do not match';
+      errors.confirmPassword = ['Passwords do not match'];
     }
     return errors;
   };
@@ -95,7 +97,8 @@ const RegistrationForm = () => {
           name="username"
           value={formData.username}
           onChange={handleChange}
-          error={formErrors.username}
+          error={formErrors.username && formErrors.username[0]}
+          disabled={loading}
         />
         <FormInput
           label="Email"
@@ -104,7 +107,8 @@ const RegistrationForm = () => {
           name="email"
           value={formData.email}
           onChange={handleChange}
-          error={formErrors.email}
+          error={formErrors.email && formErrors.email[0]}
+          disabled={loading}
         />
         <FormInput
           label="Password"
@@ -113,7 +117,8 @@ const RegistrationForm = () => {
           name="password"
           value={formData.password}
           onChange={handleChange}
-          error={formErrors.password}
+          error={formErrors.password && formErrors.password[0]}
+          disabled={loading}
         />
         <FormInput
           label="Confirm Password"
@@ -122,9 +127,12 @@ const RegistrationForm = () => {
           name="password_confirmation"
           value={formData.password_confirmation}
           onChange={handleChange}
-          error={formErrors.password_confirmation}
+          error={formErrors.password_confirmation && formErrors.password_confirmation[0]}
+          disabled={loading}
         />
-        <button type="submit">Register</button>
+        <button type="submit" disabled={loading}>
+          { loading ? '...Loading' : 'Register' }
+        </button>
       </form>
     </div>
   );
