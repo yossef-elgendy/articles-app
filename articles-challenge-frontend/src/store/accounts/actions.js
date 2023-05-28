@@ -101,10 +101,12 @@ export const loginCustomer = (formData) => {
 
       return { payload: { user, access_token } };
     } catch (error) {
-      dispatch(saveCustomerFailure(error.message));
+      const { response: { data: { error: errorMessage = '' } = {} } = {} } = error;
+
+      dispatch(saveCustomerFailure(errorMessage));
       dispatch(addNotification({
         id: Math.floor(Math.random() * 100),
-        message: error.message,
+        message: errorMessage,
         type: 'danger'
       }));
 
