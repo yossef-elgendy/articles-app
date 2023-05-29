@@ -45,6 +45,8 @@ const accountsReducer = (state = initialState, action) => {
       return {
         ...state,
         customerErrors: [action.payload],
+        savedCustomer: null,
+        profileToken: null,
         loading: false
       };
     case LOGOUT_CUSTOMER_SUCCESS:
