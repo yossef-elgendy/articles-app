@@ -16,7 +16,7 @@ use App\Http\Controllers\Auth\AuthController;
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', [AuthController::class, 'user']);
     Route::post('/customer/logout', [AuthController::class, 'logout']);
-
+    Route::put('/customer/update', [AuthController::class, 'update']);
 });
 
 Route::post('/customer/login', [AuthController::class, 'login']);

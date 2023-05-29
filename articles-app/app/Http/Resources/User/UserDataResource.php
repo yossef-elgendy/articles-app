@@ -17,6 +17,9 @@ class UserDataResource extends JsonResource
         return [
             'username' => $this->username,
             'email' => $this->email,
+            'sources' => $this->sources,
+            'authors' => $this->authors,
+            'categories' => $this->categories
         ];
     }
 }

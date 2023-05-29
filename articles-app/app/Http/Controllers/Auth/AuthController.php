@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\User\RegisterRequest;
+use App\Http\Requests\User\UpdateUserRequest;
 use App\Http\Resources\User\UserDataResource;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,6 +29,24 @@ class AuthController extends Controller
             return response()->json(['message' => $e->getMessage()], Response::HTTP_BAD_GATEWAY);
         }
     }
+
+    public function update(UpdateUserRequest $request)
+    {
+        try {
+            $user = $request->user();
+
+            $user->update($request->only(['sources', 'categories', 'authors']));
+
+            return response()->json([
+                'user' => new UserDataResource($user)
+            ], Response::HTTP_ACCEPTED);
+        } catch(\Exception $e) {
+            return response()->json([
+                'errors' => [$e->getMessage()]
+            ], Response::HTTP_NOT_FOUND);
+        }
+    }
+
 
     public function login(Request $request)
     {
@@ -52,10 +71,7 @@ class AuthController extends Controller
             $user = User::create([
                 'username' => $request->input('username'),
                 'email' => $request->input('email'),
-                'password' => Hash::make($request->input('password')),
-                'authors' => $request->input('authors'),
-                'sources' => $request->input('sources'),
-                'categories' => $request->input('categories')
+                'password' => Hash::make($request->input('password'))
             ]);
 
             Auth::login($user);
