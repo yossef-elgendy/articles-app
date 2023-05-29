@@ -14,19 +14,26 @@ export const UPDATE_USER_FAILURE = 'UPDATE_USER_FAILURE';
 const API_URL = import.meta.env.VITE_API_URL;
 const API_REGISTER = import.meta.env.VITE_REGISTER_API;
 const API_LOGIN = import.meta.env.VITE_LOGIN_API;
-const API_LOGOUT = import.meta.env.VITE_LOGOUT_API
+const API_LOGOUT = import.meta.env.VITE_LOGOUT_API;
+const API_UPDATE = import.meta.env.VITE_UPDATE_API;
 
-export const updateUser = (userId, userData) => {
+export const updateUser = (token, userData) => {
   return async (dispatch) => {
     dispatch(updateUserRequest());
 
     try {
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      const response = await axios.put(`/api/users/${userId}`, userData);
-      const updatedUser = response.data;
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      };
 
-      dispatch(updateUserSuccess(updatedUser));
+      const response = await axios.put(`${API_URL}${API_UPDATE}`, userData, config);
+      const { user } = response.data;
+
+      dispatch(updateUserSuccess(user));
       dispatch(addNotification({
         id: Math.floor(Math.random() * 100),
         message: 'User profile updated successfully.',

@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 const MyProfileForm = () => {
   const dispatch = useDispatch();
   const currentUser = useSelector(state => state.user.savedCustomer);
+  const token = useSelector(state => state.user.profileToken);
   const loading = useSelector(state => state.user.loading);
   const navigate = useNavigate();
 
@@ -23,9 +24,9 @@ const MyProfileForm = () => {
   useEffect(() => {
     if (currentUser) {
       setFormData({
-        sources: currentUser.sources || [],
-        categories: currentUser.categories || [],
-        authors: currentUser.authors || []
+        sources: currentUser.sources ? currentUser.sources : [],
+        categories: currentUser.categories ? currentUser.categories : [],
+        authors: currentUser.authors? currentUser.authors : []
       });
     } else {
         navigate('/', { replace: true })
@@ -68,7 +69,7 @@ const MyProfileForm = () => {
     const errors = validateForm();
     if (Object.keys(errors).length === 0) {
       try {
-        await dispatch(updateUser(formData));
+        await dispatch(updateUser(token, formData));
         setFormErrors({});
       } catch (error) {
         return;
