@@ -20,8 +20,6 @@ const MyProfileForm = () => {
 
   const [formErrors, setFormErrors] = useState({});
 
-  console.log(formData, formErrors);
-
   useEffect(() => {
     if (currentUser) {
       setFormData({
@@ -35,9 +33,11 @@ const MyProfileForm = () => {
   }, [currentUser, navigate]);
 
   const handleChange = (inputName, newTags) => {
-    setFormData((prevTags) => ({
-      ...prevTags,
-      [inputName]: newTags,
+    const filteredTags = newTags.filter((tag) => tag.trim() !== '');
+
+    setFormData((prevData) => ({
+      ...prevData,
+      [inputName]: filteredTags,
     }));
   };
 
