@@ -1,12 +1,12 @@
 /* Global Button Styling */
-.button,
+button,
 .cta-btn,
 .hero-cta-btn {
     padding: 10px 20px;
     background-color: #A4D0A4;
     color: #ffffff;
     border: none;
-    border-radius: 4px;
+    border-radius: 8px;
     cursor: pointer;
     font-weight: bold;
 }

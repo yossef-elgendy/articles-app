@@ -5,6 +5,7 @@ import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import accountsReducer from './accounts';
 import notificationsReducer from './notifications';
+import articleReducer from './articles';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 
@@ -16,7 +17,8 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
     user: accountsReducer,
-    notifications: notificationsReducer
+    notifications: notificationsReducer,
+    articles: articleReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

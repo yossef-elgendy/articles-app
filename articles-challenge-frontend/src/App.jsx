@@ -10,6 +10,7 @@ import RegisterPage from './pages/RegisterPage/RegisterPage';
 import LoginPage from './pages/LoginPage/LoginPage';
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
 import MyProfilePage from './pages/MyProfilePage/MyProfilePage';
+import CatalogPage from './pages/CatalogPage/CatalogPage';
 import './styles/button.css';
 import './App.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
@@ -28,6 +29,7 @@ const App = () => {
                   <Route path="/register" element={<RegisterPage />} />
                   <Route path="/login" element={<LoginPage />} />
                   <Route path="/profile" element={<MyProfilePage />} />
+                  <Route path="/articles" element={<CatalogPage />} />
                   <Route path="*" element={<NotFoundPage />} />
                 </Routes>
               </main>
