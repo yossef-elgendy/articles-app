@@ -2,25 +2,29 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Catalog from '../../components/Catalog/Catalog';
 import './CatalogPage.css';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchArticles } from '../../store/articles/actions'
 
 const CatalogPage = () => {
   const [apiOptions] = useState([
     { label: 'NewsApi', value: 'NewsApi' },
     { label: 'New york times Api', value: 'NytApi' }
-    // Add more API options as needed
   ]);
-  const { loading } = useSelector(state => state.user);
+
+  const { loading } = useSelector(state => state.articles);
   const [selectedAPI, setSelectedAPI] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [articles, setArticles] = useState([]);
+  const dispatch = useDispatch();
 
   const handleSelectAPI = (event) => {
     setSelectedAPI(event.target.value);
   };
 
   const handleSearchArticles = () => {
-
+    if (selectedAPI && searchQuery) {
+      dispatch(fetchArticles(selectedAPI, searchQuery));
+    }
   };
 
   const handleSearchQuery = (event) => {
@@ -52,13 +56,13 @@ const CatalogPage = () => {
         <select
           id="api-select"
           className="api-select"
-          value={selectedAPI}
-          onChange={handleSelectAPI}
+          value={ selectedAPI }
+          onChange={ handleSelectAPI }
         >
           <option value="">Select an API</option>
           {apiOptions.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
+            <option key={ option.value } value={ option.value }>
+              { option.label }
             </option>
           ))}
         </select>
@@ -68,15 +72,15 @@ const CatalogPage = () => {
           id="search-input"
           className="search-input"
           type="text"
-          value={searchQuery}
-          onChange={handleSearchQuery}
+          value={ searchQuery }
+          onChange={ handleSearchQuery }
           placeholder="Search..."
         />
         <button onClick={ handleSearchArticles } disabled={ loading }>
-            Search
+            { loading ? '...Loading' : 'Search' }
         </button>
       </div>
-      <Catalog articles={articles} />
+      <Catalog articles={ articles } />
     </div>
   );
 };
