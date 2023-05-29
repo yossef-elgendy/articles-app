@@ -44,7 +44,6 @@ const accountsReducer = (state = initialState, action) => {
     case LOGOUT_CUSTOMER_FAILURE:
       return {
         ...state,
-        savedCustomer: null,
         customerErrors: [action.payload],
         loading: false
       };

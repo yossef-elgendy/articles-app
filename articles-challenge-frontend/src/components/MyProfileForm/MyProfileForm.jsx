@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateUser } from '../../store/accounts/actions';
-import FormInput from '../FormInput/FormInput';
+import TagsInput from 'react-tagsinput';
+import 'react-tagsinput/react-tagsinput.css';
 import './MyProfileForm.css';
 import { useNavigate } from 'react-router-dom';
 
@@ -12,30 +13,54 @@ const MyProfileForm = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    sources: '',
-    categories: '',
-    authors: ''
+    sources: [],
+    categories: [],
+    authors: []
   });
 
   const [formErrors, setFormErrors] = useState({});
 
+  console.log(formData, formErrors);
+
   useEffect(() => {
     if (currentUser) {
       setFormData({
-        sources: currentUser.sources || '',
-        categories: currentUser.categories || '',
-        authors: currentUser.authors || ''
+        sources: currentUser.sources || [],
+        categories: currentUser.categories || [],
+        authors: currentUser.authors || []
       });
     } else {
         navigate('/', { replace: true })
     }
   }, [currentUser, navigate]);
 
-  const handleChange = e => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+  const handleChange = (inputName, newTags) => {
+    setFormData((prevTags) => ({
+      ...prevTags,
+      [inputName]: newTags,
+    }));
+  };
+
+  const renderTagsInputs = () => {
+    const tagsInputs = [
+      { name: 'sources', label: 'Sources' },
+      { name: 'authors', label: 'Authors' },
+      { name: 'categories', label: 'Categories' },
+    ];
+
+    return tagsInputs.map(({ name, label }) => (
+      <div className='form-group' key={ name }>
+        <label htmlFor={ name }> { name }</label>
+        <TagsInput
+          name={ name }
+          label={ label }
+          value={ formData[name] }
+          onChange={ (newTags) => handleChange(name, newTags) }
+          disabled={ loading }
+        />
+        { formErrors[name] && <span className="error">{ formErrors[name] }</span> }
+      </div>
+    ));
   };
 
   const handleSubmit = async e => {
@@ -55,13 +80,13 @@ const MyProfileForm = () => {
 
   const validateForm = () => {
     const errors = {};
-    if (!formData.sources.trim()) {
+    if (formData.sources.length === 0) {
       errors.sources = 'Sources is required';
     }
-    if (!formData.categories.trim()) {
+    if (formData.categories.length === 0) {
       errors.categories = 'Categories is required';
     }
-    if (!formData.authors.trim()) {
+    if (formData.authors.length === 0) {
       errors.authors = 'Authors is required';
     }
     return errors;
@@ -71,39 +96,7 @@ const MyProfileForm = () => {
     <div className="user-profile-form">
       <h1>Edit Profile</h1>
       <form onSubmit={handleSubmit}>
-        <FormInput
-          label="Sources"
-          type="text"
-          id="sources"
-          name="sources"
-          value={formData.sources}
-          onChange={handleChange}
-          error={formErrors.sources}
-          disabled={loading}
-          placeholder="New York times, Wikipedia, ..."
-        />
-        <FormInput
-          label="Categories"
-          type="text"
-          id="categories"
-          name="categories"
-          value={formData.categories}
-          onChange={handleChange}
-          error={formErrors.categories}
-          disabled={loading}
-          placeholder="Sport, Tech, ..."
-        />
-        <FormInput
-          label="Authors"
-          type="text"
-          id="authors"
-          name="authors"
-          value={formData.authors}
-          onChange={handleChange}
-          error={formErrors.authors}
-          disabled={loading}
-          placeholder="Elon Musk, Mark Zuckerberg, ..."
-        />
+        {renderTagsInputs()}
         <button type="submit" disabled={loading}>
           {loading ? '...Loading' : 'Update Profile'}
         </button>
