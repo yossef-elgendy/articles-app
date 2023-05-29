@@ -41,7 +41,7 @@
     border-color: #4c8bf5;
 }
 
-button {
+.search-bar button {
     border-radius: 8px;
 }
 
@@ -59,7 +59,7 @@ button {
         flex-direction: column;
     }
 
-    .search-input button {
+    .search-bar button {
         width: 100%;
     }
 }

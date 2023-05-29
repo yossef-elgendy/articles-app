@@ -1,4 +1,6 @@
 <?php
+
+use App\Http\Controllers\Articles\ArticlesController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 
@@ -21,3 +23,4 @@ Route::middleware('auth:sanctum')->group(function () {
 
 Route::post('/customer/login', [AuthController::class, 'login']);
 Route::post('/customer/register', [AuthController::class, 'register']);
+Route::get('/{apiType}/articles', [ArticlesController::class, 'index']);

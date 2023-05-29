@@ -44,4 +44,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * The api type that should be mapped to its service.
+     *
+     * @var array<string, string>
+     */
+    const API_TYPE = [
+        'NewsApi' => 'NewsApiArticleProvider',
+        'NytApi' => 'NytApiArticleProvider',
+    ];
 }

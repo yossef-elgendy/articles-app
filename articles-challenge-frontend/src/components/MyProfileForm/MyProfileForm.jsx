@@ -24,9 +24,15 @@ const MyProfileForm = () => {
   useEffect(() => {
     if (currentUser) {
       setFormData({
-        sources: currentUser.sources ? currentUser.sources : [],
-        categories: currentUser.categories ? currentUser.categories : [],
-        authors: currentUser.authors? currentUser.authors : []
+        sources: typeof currentUser.sources === 'string'
+        ? JSON.parse(currentUser.sources)
+        : Array.isArray(currentUser.sources) ? currentUser.sources : [],
+        categories: typeof currentUser.categories === 'string'
+        ? JSON.parse(currentUser.categories)
+        : Array.isArray(currentUser.categories) ? currentUser.categories : [],
+        authors: typeof currentUser.authors === 'string'
+        ? JSON.parse(currentUser.authors)
+        : Array.isArray(currentUser.authors) ? currentUser.authors : []
       });
     } else {
         navigate('/', { replace: true })
