@@ -52,13 +52,13 @@
 .catalog-item h2 {
     font-size: 20px;
     margin-bottom: 10px;
-    color: #617a55;
+    color: #333;
     font-weight: 700;
 }
 
 .catalog-item p {
     margin-bottom: 10px;
-    color: #617a55;
+    color: #555;
 }
 
 .catalog-item img {
@@ -74,8 +74,20 @@
     gap: 8px;
 }
 
-.pagination button{
-    border-radius: 4px;
+.pagination button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.pagination button:hover {
+    background-color: #385ea1;
+    color: #b8b2b2;
 }
 
 .pagination-container {
@@ -90,7 +102,6 @@
     display: flex;
     margin: auto;
     padding: 4px;
-    background-color: #A4D0A4;
     width: auto;
     color: white;
     border-radius: 4px;

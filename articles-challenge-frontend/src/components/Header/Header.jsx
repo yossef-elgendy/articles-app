@@ -26,7 +26,7 @@ const Header = () => {
     <header className="header">
       <nav className="navbar navbar-expand-lg navbar-light">
         <Link className="navbar-brand" to="/">
-          Your Logo
+          <i className="fas fa-newspaper"></i>
         </Link>
         <button
           className="navbar-toggler"

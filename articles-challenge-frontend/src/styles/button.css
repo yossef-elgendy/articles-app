@@ -1,14 +1,15 @@
 /* Global Button Styling */
-button,
+.button,
 .cta-btn,
 .hero-cta-btn {
     padding: 10px 20px;
-    background-color: #A4D0A4;
+    background-color: #007bff;
     color: #ffffff;
     border: none;
     border-radius: 8px;
     cursor: pointer;
     font-weight: bold;
+    text-decoration: none;
 }
 
 /* Apply Theme-specific Styles */
@@ -25,12 +26,13 @@ button,
 .button:hover,
 .cta-btn:hover,
 .hero-cta-btn:hover {
-    background-color: #afcaaf;
+    background-color: #385ea1;
+    color: #ffff;
 }
 
 /* Click Effect */
 .button:active,
 .cta-btn:active,
 .hero-cta-btn:active {
-    background-color: #afcaaf;
+    background-color: #385ea1;
 }

@@ -3,11 +3,8 @@
     padding: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     flex: 1;
-    background: linear-gradient(
-      4deg,
-      rgba(255, 248, 214, 1) 20%,
-      rgba(247, 225, 174, 1) 57%
-    );
+    background: #007bff;
+    color: #fff;
 }
 
 .collapse {
@@ -16,10 +13,10 @@
     justify-content: space-between;
 }
 
-.logo {
-    font-size: 20px;
+.navbar-brand i {
+    font-size: 30px;
     font-weight: bold;
-    color: #a4d0a4;
+    color: #fff;
 }
 
 .menu {
@@ -30,7 +27,25 @@
 
 .menu li a {
     text-decoration: none;
-    color: #617a55;
+    color: #ffff;
+}
+
+.nav-link {
+    color: #ececec !important;
+    transition: ease-in-out;
+}
+
+.nav-link:hover {
+    color: #ffff !important;
+}
+
+.navbar-toggler {
+    border: 1px solid #ececec !important;
+    transition: ease-in-out;
+}
+
+.navbar-toggler:hover {
+    background-color: #c1c1c1;
 }
 
 /* Responsive Styles */
