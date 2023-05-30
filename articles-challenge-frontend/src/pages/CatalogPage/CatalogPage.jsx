@@ -32,7 +32,7 @@ const CatalogPage = () => {
 
   useEffect(() => {
     dispatch(fetchArticles(selectedAPI, searchQuery));
-  }, []);
+  }, [selectedAPI, dispatch]);
 
   return (
     <div className="catalog-page">
