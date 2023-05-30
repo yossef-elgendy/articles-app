@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  laravel-app:
+    build:
+      context: ./articles-app
+      dockerfile: Dockerfile
+    ports:
+      - 80:80
+    volumes:
+      - ./laravel-app:/var/www/html
+
+  vite-react-app:
+    build:
+      context: ./articles-challenge-frontend
+      dockerfile: Dockerfile-vite-react
+    ports:
+      - 3000:3000
+    volumes:
+      - ./vite-react-app:/app
