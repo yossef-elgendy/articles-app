@@ -4,6 +4,7 @@ import Catalog from '../../components/Catalog/Catalog';
 import './CatalogPage.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchArticles } from '../../store/articles/actions';
+import Loader from '../../components/Loader/Loader'
 
 const CatalogPage = () => {
   const [apiOptions] = useState([
@@ -11,18 +12,34 @@ const CatalogPage = () => {
     { label: 'New york times Api', value: 'NytApi' }
   ]);
 
-  const { loading, articles } = useSelector((state) => state.articles);
+  const { loading, articles: { data, totalPages } } = useSelector((state) => state.articles);
+  const {
+    savedCustomer
+  } = useSelector((state) => state.user);
   const [selectedAPI, setSelectedAPI] = useState('NewsApi');
   const [searchQuery, setSearchQuery] = useState('');
+  const [currentPage, setCurrPage] = useState(0);
   const dispatch = useDispatch();
 
   const handleSelectAPI = (event) => {
     setSelectedAPI(event.target.value);
+    setCurrPage(0);
   };
 
   const handleSearchArticles = () => {
     if (selectedAPI) {
-      dispatch(fetchArticles(selectedAPI, searchQuery));
+      let queryParams = {
+        q: searchQuery,
+        page: currentPage
+      };
+
+      if (savedCustomer) {
+        queryParams['sources'] = savedCustomer.sources;
+        queryParams['categories'] = savedCustomer.categories;
+        queryParams['authors'] = savedCustomer.authors;
+      }
+
+      dispatch(fetchArticles(selectedAPI, queryParams));
     }
   };
 
@@ -31,8 +48,20 @@ const CatalogPage = () => {
   };
 
   useEffect(() => {
-    dispatch(fetchArticles(selectedAPI, searchQuery));
-  }, [selectedAPI, dispatch]);
+    let queryParams = {
+      q: searchQuery,
+      page: currentPage
+    };
+
+    if (savedCustomer) {
+      queryParams['sources'] = savedCustomer.sources;
+      queryParams['categories'] = savedCustomer.categories;
+      queryParams['authors'] = savedCustomer.authors;
+    }
+
+
+    dispatch(fetchArticles(selectedAPI, queryParams));
+  }, [selectedAPI, currentPage, dispatch]);
 
   return (
     <div className="catalog-page">
@@ -63,7 +92,15 @@ const CatalogPage = () => {
           { loading ? '...Loading' : 'Search' }
         </button>
       </div>
-      <Catalog articles={ articles } />
+      { (loading)
+        ? <Loader />
+        : <Catalog
+            articles={ data }
+            totalPages={ totalPages }
+            currentPage={ currentPage }
+            onPageChange={ setCurrPage }
+          />
+      }
     </div>
   );
 };

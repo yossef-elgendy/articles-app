@@ -16,7 +16,7 @@ class NewsApiArticlesResource extends JsonResource
     {
         $transformedArticles = [];
 
-        foreach ($this->resource as $article) {
+        foreach ($this->resource['articles'] as $article) {
             $transformedArticles[] = [
                 'title' => $article['title'],
                 'description' => $article['description'],
@@ -26,6 +26,9 @@ class NewsApiArticlesResource extends JsonResource
             ];
         }
 
-        return $transformedArticles;
+        return [
+            'data' => $transformedArticles,
+            'totalPages' => ceil($this->resource['totalResults'] / 10)
+        ];
     }
 }

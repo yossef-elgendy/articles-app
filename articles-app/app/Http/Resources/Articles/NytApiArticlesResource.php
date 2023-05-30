@@ -16,7 +16,7 @@ class NytApiArticlesResource extends JsonResource
     {
         $transformedArticles = [];
 
-        foreach ($this->resource as $article) {
+        foreach ($this->resource['docs'] as $article) {
             $transformedArticles[] = [
                 'title' => $article['headline']['main'],
                 'description' => $article['abstract'],
@@ -26,6 +26,9 @@ class NytApiArticlesResource extends JsonResource
             ];
         }
 
-        return $transformedArticles;
+        return [
+            'data' => $transformedArticles,
+            'totalPages' => ceil($this->resource['meta']['hits'] / 10)
+        ];
     }
 }

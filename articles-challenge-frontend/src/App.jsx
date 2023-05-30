@@ -14,6 +14,7 @@ import CatalogPage from './pages/CatalogPage/CatalogPage';
 import './styles/button.css';
 import './App.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import '@fortawesome/fontawesome-free/css/all.css';
 
 const App = () => {
   return (

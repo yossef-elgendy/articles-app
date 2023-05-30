@@ -5,7 +5,10 @@ import {
   } from "./actions";
 
 const initialState = {
-  articles: [],
+  articles: {
+    data: [],
+    totalPages: 0
+  },
   loading: false,
   error: null
 };
