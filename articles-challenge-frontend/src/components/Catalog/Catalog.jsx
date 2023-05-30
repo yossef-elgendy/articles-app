@@ -1,22 +1,23 @@
-import './Catalog.css';
 import PropTypes from 'prop-types';
+import './Catalog.css';
 
 const Catalog = ({ articles }) => {
   return (
     <div className="catalog">
       {articles.map((article) => (
-        <div className="catalog-item" key={article.id}>
-          <h2>{article.title}</h2>
-          <p>{article.description}</p>
-          <img src={article.image} alt={article.title} />
-        </div>
+        <a href={article.url} target="_blank" rel="noopener noreferrer" key={article.id}>
+          <div className="catalog-item">
+            <h2>{article.title}</h2>
+            <p>{article.description}</p>
+          </div>
+        </a>
       ))}
     </div>
   );
 };
 
 Catalog.propTypes = {
-    articles: PropTypes.array,
+  articles: PropTypes.array,
 };
 
 export default Catalog;

@@ -7,14 +7,21 @@ export const FETCH_ARTICLES_SUCCESS = 'FETCH_ARTICLES_SUCCESS';
 export const FETCH_ARTICLES_FAILURE = 'FETCH_ARTICLES_FAILURE';
 
 const API_URL = import.meta.env.VITE_API_URL;
+const API_ARTICLES = import.meta.env.VITE_ARTICLES_API;
 
 export const fetchArticles = (apiType, searchQuery) => {
   return async (dispatch) => {
     dispatch({ type: FETCH_ARTICLES_REQUEST }); // Dispatch the loading action
 
+    console.log(`${API_URL}/${apiType}${API_ARTICLES}?q=${searchQuery}`);
     try {
       const response = await axios.get(
-        `${API_URL}/${apiType}/articles?q=${searchQuery}`
+        `${API_URL}/api/${apiType}${API_ARTICLES}`,
+        {
+          params: {
+            q: searchQuery
+          }
+        }
       );
 
       dispatch({
