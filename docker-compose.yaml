@@ -2,6 +2,7 @@ version: '3'
 
 services:
   laravel-app:
+    command: docker-compose exec laravel-app php artisan migrate
     build:
       context: ./articles-app
       dockerfile: Dockerfile

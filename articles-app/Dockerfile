@@ -1,4 +1,4 @@
-FROM php:7.4-apache
+FROM php:8.1.0-apache
 
 WORKDIR /var/www/html
 
@@ -14,6 +14,8 @@ RUN apt-get update && \
 
 COPY . .
 
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
 RUN chown -R www-data:www-data /var/www/html && \
     chmod -R 775 /var/www/html/storage && \
     chmod -R 775 /var/www/html/bootstrap/cache && \
@@ -21,7 +23,7 @@ RUN chown -R www-data:www-data /var/www/html && \
     php artisan key:generate
 
 RUN composer install --optimize-autoloader --no-dev && \
-    php artisan migrate --force
+    php artisan migrate
 
 EXPOSE 80
 
