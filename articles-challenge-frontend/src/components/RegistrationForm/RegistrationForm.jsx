@@ -1,10 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from 'react';
-import './RegistrationForm.css';
-import { useNavigate } from 'react-router-dom';
-import FormInput from '../FormInput/FormInput';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { saveCustomer } from '../../store/accounts/actions';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
+import FormInput from '../FormInput/FormInput';
+import './RegistrationForm.css';
+
 
 const RegistrationForm = () => {
   const dispatch = useDispatch();
@@ -88,7 +91,12 @@ const RegistrationForm = () => {
 
   return (
     <div className="registration-form">
-      <h1>Registration Form</h1>
+      <div className='registration-form-title'>
+        <span>
+          Registration Form
+        </span>
+        <FontAwesomeIcon icon={faUser} size="lg" color="#007bff" className="my-icon" />
+      </div>
       <form onSubmit={handleSubmit}>
         <FormInput
           label="Username"
@@ -130,9 +138,12 @@ const RegistrationForm = () => {
           error={formErrors.password_confirmation && formErrors.password_confirmation[0]}
           disabled={loading}
         />
-        <button type="submit" disabled={loading}>
-          { loading ? '...Loading' : 'Register' }
-        </button>
+        <div className="register-form-actions">
+          <button type="submit" disabled={loading}>
+            { loading ? '...Loading' : 'Register' }
+          </button>
+          <Link to="/login">{ 'I already have an account' }</Link>
+        </div>
       </form>
     </div>
   );

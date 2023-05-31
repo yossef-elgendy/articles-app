@@ -1,16 +1,28 @@
-.login-form {
-    max-width: 400px;
+.login-form.login-form {
+    max-width: 600px;
     margin: 0 auto;
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    background: rgb(255,248,214);
-    background: linear-gradient(4deg, rgba(255,248,214,1) 20%, rgba(247,225,174,1) 57%);
+    background: #ffff;
 }
 
-.login-form h1 {
-    text-align: center;
+.login-form form {
+    max-width: unset;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.login-form-title {
+    font-size: 24px;
     margin-bottom: 20px;
+    color: #333;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
 }
 
 .login-form .form-group {
@@ -20,6 +32,7 @@
 .login-form label {
     display: block;
     margin-bottom: 5px;
+    color: #555;
 }
 
 .login-form input[type='email'],
@@ -33,4 +46,26 @@
 .login-form .error {
     color: red;
     font-size: 14px;
+}
+
+.login-form-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.login-form-actions button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.login-form-actions button:hover {
+    background-color: #385ea1;
+    color: #b8b2b2;
 }

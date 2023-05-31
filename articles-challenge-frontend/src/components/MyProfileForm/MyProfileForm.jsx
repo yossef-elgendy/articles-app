@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateUser } from '../../store/accounts/actions';
+import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import TagsInput from 'react-tagsinput';
 import 'react-tagsinput/react-tagsinput.css';
 import './MyProfileForm.css';
-import { useNavigate } from 'react-router-dom';
 
 const MyProfileForm = () => {
   const dispatch = useDispatch();
@@ -95,7 +97,10 @@ const MyProfileForm = () => {
 
   return (
     <div className="user-profile-form">
-      <h1>Edit Profile</h1>
+      <div className="user-profile-form-title">
+        <span>Edit Profile</span>
+        <FontAwesomeIcon icon={faEdit} size="lg" color="#007bff" className="my-icon" />
+      </div>
       <form onSubmit={handleSubmit}>
         {renderTagsInputs()}
         <button type="submit" disabled={loading}>

@@ -1,8 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginCustomer } from '../../store/accounts/actions';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import FormInput from '../FormInput/FormInput';
 import './LoginForm.css';
 
@@ -66,7 +68,10 @@ const LoginForm = () => {
 
   return (
     <div className="login-form">
-      <h1>Login</h1>
+      <div className="login-form-title">
+        <span>Login</span>
+        <FontAwesomeIcon icon={faSignInAlt} size="lg" color="#007bff" className="my-icon" />
+      </div>
       <form onSubmit={handleSubmit}>
         <FormInput
           label="Email"
@@ -88,9 +93,12 @@ const LoginForm = () => {
           error={formErrors.password}
           disabled={loading}
         />
-        <button type="submit" disabled={loading}>
-          { loading ? '...Loading' : 'Login' }
-        </button>
+        <div className="login-form-actions">
+          <button type="submit" disabled={loading}>
+            { loading ? '...Loading' : 'Login' }
+          </button>
+          <Link to="/register">{ 'Don\'t have an account ?' }</Link>
+        </div>
       </form>
     </div>
   );

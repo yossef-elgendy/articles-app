@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import Notification from '../Notification/Notification';
 import { removeNotification } from '../../store/notifications/actions';
+import './NotificationList.css';
 
 const NotificationList = () => {
   const notifications = useSelector(state => state.notifications);

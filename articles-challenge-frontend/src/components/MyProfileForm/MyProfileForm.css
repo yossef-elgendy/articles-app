@@ -4,12 +4,7 @@
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    background: rgb(255, 248, 214);
-    background: linear-gradient(
-      4deg,
-      rgba(255, 248, 214, 1) 20%,
-      rgba(247, 225, 174, 1) 57%
-    );
+    background: #fff;
 }
 
 .user-profile-form form {
@@ -19,16 +14,37 @@
     max-width: unset;
 }
 
+.user-profile-form-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+}
+
 .user-profile-form input[type='text'] {
     width: 100%;
 }
 
 .react-tagsinput {
-    padding: 5px;
+    padding: 0px;
+}
+
+.react-tagsinput-tag {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.react-tagsinput  input {
+    margin-block-end: 0px;
 }
 
 .react-tagsinput-tag a::before {
     content: "×";
+    color: #fff;
 }
 
 .react-tagsinput-remove {
@@ -47,6 +63,7 @@
 .user-profile-form label {
     display: block;
     margin-bottom: 5px;
+    color: #555;
 }
 
 .user-profile-form input[type='text'] {

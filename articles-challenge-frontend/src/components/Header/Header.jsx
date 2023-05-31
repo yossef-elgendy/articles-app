@@ -1,8 +1,10 @@
 import { useEffect } from 'react';
-import './Header.css';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutCustomer } from '../../store/accounts/actions';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser, faSignOutAlt, faHome, faFileAlt, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
+import './Header.css';
 
 const Header = () => {
   const token = useSelector(state => state.user.profileToken);
@@ -43,11 +45,15 @@ const Header = () => {
           <ul className="navbar-nav ml-auto">
             <li className="nav-item">
               <Link className="nav-link" to="/">
+                <FontAwesomeIcon icon={faHome} color="#fff" className="logout-icon" />
+                { ' ' }
                 Home
               </Link>
             </li>
             <li className="nav-item">
               <Link className="nav-link" to="/articles">
+                <FontAwesomeIcon icon={faFileAlt} color="#fff" className="my-icon" />
+                { ' ' }
                 Articles
               </Link>
             </li>
@@ -55,11 +61,15 @@ const Header = () => {
               <>
                 <li className="nav-item">
                   <Link className="nav-link" to="/login">
+                    <FontAwesomeIcon icon={faSignInAlt} color="#fff" className="logout-icon" />
+                    { ' ' }
                     Login
                   </Link>
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" to="/register">
+                    <FontAwesomeIcon icon={faUser} color="#fff" className="my-icon" />
+                    { ' ' }
                     Register
                   </Link>
                 </li>
@@ -68,11 +78,17 @@ const Header = () => {
               <>
                 <li className="nav-item">
                   <Link className="nav-link" to="/profile">
+                    <FontAwesomeIcon icon={faUser} color="#fff" className="my-icon" />
+                    { ' ' }
                     My Profile
                   </Link>
                 </li>
                 <li className="nav-item" onClick={ handleLogout }>
-                  <Link className="nav-link">Logout</Link>
+                  <Link className="nav-link">
+                    <FontAwesomeIcon icon={faSignOutAlt} color="#fff" className="logout-icon" />
+                    { ' ' }
+                    Logout
+                  </Link>
                 </li>
               </>
             )}
