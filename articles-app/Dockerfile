@@ -21,5 +21,3 @@ RUN chmod +x /usr/local/bin/composer
 RUN composer install
 
 EXPOSE 8000
-
-CMD ["apache2-foreground"]

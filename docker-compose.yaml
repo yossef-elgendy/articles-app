@@ -2,28 +2,29 @@ version: '3.8'
 
 services:
   laravel-app:
+    restart: unless-stopped
     networks:
       - app
-    command: docker-compose exec laravel-app php artisan migrate
+      - db
     build:
       context: ./articles-app
       dockerfile: Dockerfile
     environment:
-      DB_HOST: db
-      DB_PORT: 3306
-      DB_DATABASE: articles
-      DB_USERNAME: root
-      DB_PASSWORD: asd3311062
+      - MYSQL_DATABASE=articles
+      - MYSQL_ROOT_PASSWORD=asd3311062
+      - MYSQL_PASSWORD=asd3311062
+      - MYSQL_USER=root
+
     depends_on:
       - db
     ports:
       - 8000:8000
     volumes:
-      - ./articles-app:./app/articles-app
+      - '/Users/yossefsherif/Desktop/Work/Articles/articles-app:/app/articles-app'
 
   vite-react-app:
     networks:
-        - app
+      - app
     tty: true
     build:
       context: ./articles-challenge-frontend
@@ -31,27 +32,29 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - ./articles-challenge-frontend:/app/articles-challenge-frontend
+      - '/Users/yossefsherif/Desktop/Work/Articles/articles-challenge-frontend:/app/articles-challenge-frontend'
     depends_on:
       - laravel-app
 
   db:
     image: mysql:8.0
+    restart: unless-stopped
     ports:
       - 3306:3306
     environment:
-      MYSQL_DATABASE: articles
-      MYSQL_USER: root
-      MYSQL_PASSWORD: asd3311062
-      MYSQL_ROOT_PASSWORD: asd3311062
+      - MYSQL_DATABASE=articles
+      - MYSQL_ROOT_PASSWORD=asd3311062
+      - MYSQL_PASSWORD=asd3311062
     volumes:
-      - dbdata:/var/lib/mysql
+      - db-data:/var/lib/mysql
     networks:
       - app
+      - db
 
 networks:
   app:
     driver: bridge
+  db:
 
 volumes:
-  dbdata:
+  db-data:
