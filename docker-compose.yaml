@@ -1,21 +1,57 @@
-version: '3'
+version: '3.8'
 
 services:
   laravel-app:
+    networks:
+      - app
     command: docker-compose exec laravel-app php artisan migrate
     build:
       context: ./articles-app
       dockerfile: Dockerfile
+    environment:
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_DATABASE: articles
+      DB_USERNAME: root
+      DB_PASSWORD: asd3311062
+    depends_on:
+      - db
     ports:
-      - 80:80
+      - 8000:8000
     volumes:
-      - ./laravel-app:/var/www/html
+      - ./articles-app:./app/articles-app
 
   vite-react-app:
+    networks:
+        - app
+    tty: true
     build:
       context: ./articles-challenge-frontend
-      dockerfile: Dockerfile-vite-react
+      dockerfile: Dockerfile
     ports:
       - 3000:3000
     volumes:
-      - ./vite-react-app:/app
+      - ./articles-challenge-frontend:/app/articles-challenge-frontend
+    depends_on:
+      - laravel-app
+
+  db:
+    image: mysql:8.0
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_DATABASE: articles
+      MYSQL_USER: root
+      MYSQL_PASSWORD: asd3311062
+      MYSQL_ROOT_PASSWORD: asd3311062
+    volumes:
+      - dbdata:/var/lib/mysql
+    networks:
+      - app
+
+networks:
+  app:
+    driver: bridge
+
+volumes:
+  dbdata:

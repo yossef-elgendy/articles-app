@@ -2,7 +2,7 @@
 FROM node:14
 
 # Set the working directory inside the Docker image
-WORKDIR /app
+WORKDIR /app/articles-challenge-frontend
 
 # Copy package.json and package-lock.json to the Docker image
 COPY package*.json ./
