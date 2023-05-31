@@ -1,4 +1,4 @@
-import Cta from '../../components/CTA/CTA';
+import Cta from '../../components/Cta/Cta';
 import Features from '../../components/Features/Features';
 import HeroSection from '../../components/HeroSection/HeroSection';
 import Loader from '../../components/Loader/Loader' ;

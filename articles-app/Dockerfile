@@ -22,6 +22,4 @@ RUN composer install
 
 EXPOSE 8000
 
-RUN php artisan serve --host=127.0.0.1
-
 CMD ["apache2-foreground"]
