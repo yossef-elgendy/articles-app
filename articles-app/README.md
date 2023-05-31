@@ -26,7 +26,8 @@ This is a Laravel project for managing articles.
 
 4. Generate an application key:
 
-   Run database migrations
+   ```bash
+    php artisan key:generate
 
 5. Set up the database:
 
