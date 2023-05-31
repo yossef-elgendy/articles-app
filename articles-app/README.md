@@ -9,46 +9,36 @@ This is a Laravel project for managing articles.
 
 ## Getting Started
 
-1. Clone the repository:
-
-   ```bash
-   git clone https://github.com/yossef-elgendy/articles-app.git
-
-2. Navigate to the project directory:
+1. Navigate to the project directory:
 
     ```bash
     cd articles-app
 
-2. Navigate to the project directory:
-
-    ```bash
-    cd articles-app
-
-3. Install dependencies:
+2. Install dependencies:
 
     ```bash
     composer install
 
-4. Create a .env file if it doesn't exist:
+3. Create a .env file if it doesn't exist:
 
     ```bash
     cp .env.example .env
 
-5. Generate an application key:
+4. Generate an application key:
 
    Run database migrations
 
-6. Set up the database:
+5. Set up the database:
 
    - Create a new database for the project.
    - Update the .env file with your database credentials.
 
-7. Run database migrations:
+6. Run database migrations:
 
     ```bash
     php artisan migrate
 
-8. Start the development server:
+7. Start the development server:
 
    ```bash
     php artisan serve
@@ -56,5 +46,23 @@ This is a Laravel project for managing articles.
 - Access the application in your web browser using the URL: http://localhost:8000.
 - Now the BE is available for FE to access it.
 
+## Project Structure
+
+The project structure is as follows:
+
+articles-app/
+|- app/
+|- bootstrap/
+|- config/
+|- database/
+|- public/
+|- resources/
+|- tests/
+|- .env.example
+|- artisan
+|- composer.json
+|- README.md
+|- server.php
+
 ## License
-This project is licensed under the [MIT License](https://opensource.org/license/mit/)
+This project is licensed under the [MIT License](LICENSE)
