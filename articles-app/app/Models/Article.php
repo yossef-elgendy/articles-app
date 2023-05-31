@@ -17,6 +17,7 @@ class Article extends Model
     const API_TYPE = [
         'NewsApi' => 'NewsApiArticleProvider',
         'NytApi' => 'NytApiArticleProvider',
+        'TG' => 'TheGuardianArticleProvider'
     ];
 
     /**
@@ -27,5 +28,6 @@ class Article extends Model
     const API_RESOURCE = [
         'NewsApi' => 'NewsApiArticlesResource',
         'NytApi' => 'NytApiArticlesResource',
+        'TG' => 'TheGuardianArticlesResource'
     ];
 }

@@ -8,6 +8,7 @@ import Loader from '../../components/Loader/Loader'
 
 const CatalogPage = () => {
   const [apiOptions] = useState([
+    { label: 'The Guardians Api', value: 'TG' },
     { label: 'NewsApi', value: 'NewsApi' },
     { label: 'New york times Api', value: 'NytApi' }
   ]);
@@ -16,7 +17,7 @@ const CatalogPage = () => {
   const {
     savedCustomer
   } = useSelector((state) => state.user);
-  const [selectedAPI, setSelectedAPI] = useState('NewsApi');
+  const [selectedAPI, setSelectedAPI] = useState('TG');
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrPage] = useState(0);
   const dispatch = useDispatch();
