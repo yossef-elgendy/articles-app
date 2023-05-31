@@ -81,6 +81,9 @@ The Laravel application is located in the `articles-app` directory. To start the
 
 7. Start the development server:
 
+    ```bash
+    php artisan serve
+
 
 ## React App
 The Vite React application is located in the `articles-challenge-frontend` directory. To start the React app, follow these steps:

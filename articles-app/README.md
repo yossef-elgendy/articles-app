@@ -42,6 +42,7 @@ This is a Laravel project for managing articles.
 
    ```bash
     php artisan serve
+
 ## Usage
 - Access the application in your web browser using the URL: http://localhost:8000.
 - Now the BE is available for FE to access it.
