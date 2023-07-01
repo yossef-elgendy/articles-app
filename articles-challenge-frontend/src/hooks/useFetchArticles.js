@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchArticles } from '../store/articles/actions';
 
@@ -16,9 +16,13 @@ const useFetchArticles = ({ selectedAPI, searchQuery, currentPage, savedCustomer
   const { articles: { data, totalPages } } = useSelector((state) => state.articles);
   const dispatch = useDispatch();
 
-  useEffect(() => {
+  /**
+   * Fetches articles based on the specified parameters.
+   * @param {string} query - The search query.
+   */
+  const handleFetch = useCallback((query = '') => {
     let queryParams = {
-      q: searchQuery,
+      q: query,
       page: currentPage
     };
 
@@ -32,9 +36,20 @@ const useFetchArticles = ({ selectedAPI, searchQuery, currentPage, savedCustomer
 
     dispatch(fetchArticles(selectedAPI, queryParams))
       .finally(() => setLoading(false));
-  }, [selectedAPI, searchQuery, currentPage, savedCustomer, dispatch]);
+  }, [selectedAPI, currentPage, savedCustomer, dispatch]);
 
-  return { loading, data, totalPages };
+  useEffect(() => {
+    handleFetch();
+  }, [handleFetch]);
+
+  /**
+   * Handles the search query button click.
+   */
+  const handleSearchQueryButton = useCallback(() => {
+    handleFetch(searchQuery);
+  }, [handleFetch, searchQuery]);
+
+  return { loading, data, totalPages, handleSearchQueryButton };
 };
 
 export default useFetchArticles;

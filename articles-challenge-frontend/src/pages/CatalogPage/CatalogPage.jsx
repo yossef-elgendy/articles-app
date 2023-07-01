@@ -15,7 +15,7 @@ const CatalogPage = () => {
     savedCustomer,
   } = useCatalogParams();
 
-  const { loading, data, totalPages } = useFetchArticles({
+  const { loading, data, totalPages, handleSearchQueryButton } = useFetchArticles({
     selectedAPI, searchQuery, currentPage, savedCustomer
   });
 
@@ -42,7 +42,7 @@ const CatalogPage = () => {
           onChange={handleSearchQueryChange}
           placeholder="Search..."
         />
-        <button onClick={() => handlePageChange(0)} disabled={loading}>
+        <button onClick={handleSearchQueryButton} disabled={loading}>
           {loading ? '...Loading' : 'Search'}
         </button>
       </div>
