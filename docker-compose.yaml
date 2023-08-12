@@ -14,11 +14,10 @@ services:
     depends_on:
       - db
     ports:
-      - '8000:8000'
+      - "8000:8000"
     volumes:
       - ./articles-app:/app/articles-app
       - /app/articles-app/vendor
-    command: ["php", "artisan", "migrate"]
 
   vite-react-app:
     networks:
@@ -27,7 +26,15 @@ services:
     container_name: vite-react-app-c
     build: ./articles-challenge-frontend
     ports:
-      - '3000:3000'
+      - "3000:3000"
+
+    environment:
+      - "VITE_API_URL=http://localhost:8000"
+      - "VITE_REGISTER_API=/api/customer/register"
+      - "VITE_LOGIN_API=/api/customer/login"
+      - "VITE_LOGOUT_API=/api/customer/logout"
+      - "VITE_UPDATE_API=/api/customer/update"
+      - "VITE_ARTICLES_API=/articles"
     volumes:
       - ./articles-challenge-frontend:/app/articles-challenge-frontend'
       - /app/articles-challenge-frontend/node_modules
@@ -38,7 +45,7 @@ services:
     image: mysql:8.0
     restart: unless-stopped
     ports:
-      - 3307:3306
+      - "3307:3306"
     environment:
       - "MYSQL_DATABASE=articles"
       - "MYSQL_ROOT_PASSWORD=asd3311062"
