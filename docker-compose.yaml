@@ -6,33 +6,35 @@ services:
     networks:
       - app
       - db
-    build:
-      context: ./articles-app
-      dockerfile: Dockerfile
+    build: ./articles-app
+    container_name: laravel-app-c
     environment:
       - MYSQL_DATABASE=articles
       - MYSQL_ROOT_PASSWORD=asd3311062
       - MYSQL_PASSWORD=asd3311062
       - MYSQL_USER=root
+      - DB_PORT=3307
 
     depends_on:
       - db
     ports:
-      - 8000:8000
+      - '8000:8000'
     volumes:
-      - '/Users/yossefsherif/Desktop/Work/Articles/articles-app:/app/articles-app'
+      - ./articles-app:/app/articles-app
+      - /app/articles-app/vendor
+    command: ["php", "artisan", "migrate"]
 
   vite-react-app:
     networks:
       - app
     tty: true
-    build:
-      context: ./articles-challenge-frontend
-      dockerfile: Dockerfile
+    container_name: vite-react-app-c
+    build: ./articles-challenge-frontend
     ports:
-      - 3000:3000
+      - '3000:3000'
     volumes:
-      - '/Users/yossefsherif/Desktop/Work/Articles/articles-challenge-frontend:/app/articles-challenge-frontend'
+      - ./articles-challenge-frontend:/app/articles-challenge-frontend'
+      - /app/articles-challenge-frontend/node_modules
     depends_on:
       - laravel-app
 
@@ -40,7 +42,7 @@ services:
     image: mysql:8.0
     restart: unless-stopped
     ports:
-      - 3306:3306
+      - 3307:3306
     environment:
       - MYSQL_DATABASE=articles
       - MYSQL_ROOT_PASSWORD=asd3311062

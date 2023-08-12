@@ -1,4 +1,4 @@
-FROM php:8.1-apache
+FROM php:8.2-apache
 
 WORKDIR /app/articles-app
 
@@ -21,3 +21,5 @@ RUN chmod +x /usr/local/bin/composer
 RUN composer install
 
 EXPOSE 8000
+
+CMD ["php", "artisan", "serve", "--port", "8000"]
