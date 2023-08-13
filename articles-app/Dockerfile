@@ -18,7 +18,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 RUN chmod +x /usr/local/bin/composer
 
-RUN composer install
+RUN composer install --no-scripts
 
 EXPOSE 8000
 
