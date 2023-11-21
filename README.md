@@ -12,35 +12,36 @@ This repository contains a Laravel application and a Vite React application for 
 
 The project structure is as follows:
 
-articles-app/
-|_ app/
-|_ bootstrap/
-|_ config/
-|_ database/
-|_ public/
-|_ resources/
-|_ tests/
-|_ .env.example
-|_ artisan
-|_ composer.json
-|_ README.md
-|_ server.php
-
-articles-challenge-frontend/
-|_ public/
-| |_ index.html
-|_ src/
-| |_ assets/
-| |_ components/
-| |_ pages/
-| |_ store/
-| |_ styles/
-|_ App.js
-|_ index.js
-|_ .gitignore
-|_ package.json
-|_ README.md
-|_ vite.config.js
+    ```
+    articles-app/
+    |_ app/
+    |_ bootstrap/
+    |_ config/
+    |_ database/
+    |_ public/
+    |_ resources/
+    |_ tests/
+    |_ .env.example
+    |_ artisan
+    |_ composer.json
+    |_ README.md
+    |_ server.php
+    
+    articles-challenge-frontend/
+    |_ public/
+    | |_ index.html
+    |_ src/
+    | |_ assets/
+    | |_ components/
+    | |_ pages/
+    | |_ store/
+    | |_ styles/
+    |_ App.js
+    |_ index.js
+    |_ .gitignore
+    |_ package.json
+    |_ README.md
+    |_ vite.config.js
 
 - The `articles-app` directory contains the Laravel application.
 - The `articles-challenge-frontend` directory contains the Vite React application.
