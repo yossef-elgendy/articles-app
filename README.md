@@ -12,7 +12,7 @@ This repository contains a Laravel application and a Vite React application for 
 
 The project structure is as follows:
 
-    ```
+    ```bash
     articles-app/
     |_ app/
     |_ bootstrap/
