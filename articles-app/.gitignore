@@ -20,6 +20,7 @@ npm-debug.log
 /storage/framework/views/
 /storage/app/*.key
 /bootstrap/cache/
+.env
 
 # IDE and editor files
 .idea/

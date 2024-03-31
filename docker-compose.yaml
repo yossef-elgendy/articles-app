@@ -8,9 +8,11 @@ services:
     ports:
       - 3307:3306
     environment:
-      - MYSQL_DATABASE=articles
-      - MYSQL_ROOT_PASSWORD=asd3311062
-      - MYSQL_PASSWORD=asd3311062
+      - MYSQL_DATABASE=${DB_DATABASE}
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+    env_file:
+      - ./articles-app/.env
     volumes:
       - db-data:/var/lib/mysql
     networks:
