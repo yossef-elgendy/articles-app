@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { addNotification } from '../notifications/actions';
 
 /**
@@ -31,13 +30,21 @@ export const updateUser = (token, userData) => {
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
       const config = {
+        method: 'PUT',
         headers: {
+          'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`
-        }
+        },
+        body: JSON.stringify(userData)
       };
 
-      const response = await axios.put(`${API_URL}${API_UPDATE}`, userData, config);
-      const { user } = response.data;
+      const response = await fetch(`${API_URL}${API_UPDATE}`, config);
+
+      if (!response.ok) {
+        throw new Error('Failed to update user profile');
+      }
+
+      const { user } = await response.json();
 
       dispatch(updateUserSuccess(user));
       dispatch(addNotification({

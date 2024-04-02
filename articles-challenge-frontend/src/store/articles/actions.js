@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { addNotification } from '../notifications/actions';
 
 /**
@@ -22,27 +21,33 @@ export const fetchArticles = (apiType, queryParams) => {
     dispatch({ type: FETCH_ARTICLES_REQUEST }); // Dispatch the loading action
 
     try {
-      // Send a GET request to fetch articles
-      const response = await axios.get(
-        `${API_URL}/api/${apiType}${API_ARTICLES}`,
+      // Send a GET request to fetch articles using fetch API
+      const response = await fetch(
+        `${API_URL}/api/${apiType}${API_ARTICLES}?${new URLSearchParams(queryParams)}`,
         {
-          params: queryParams
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
         }
       );
 
-      // Dispatch the success action with the fetched articles
+      if (!response.ok) {
+        throw new Error('Failed to fetch articles');
+      }
+
+      const data = await response.json();
+
       dispatch({
         type: FETCH_ARTICLES_SUCCESS,
-        payload: response.data.articles,
+        payload: data.articles,
       });
     } catch (error) {
-      // Dispatch the failure action with the error message
       dispatch({
         type: FETCH_ARTICLES_FAILURE,
         payload: error.message,
       });
 
-      // Show a notification for the failure
       dispatch(addNotification({
         id: Math.floor(Math.random() * 100),
         message: 'Failed to fetch articles.',

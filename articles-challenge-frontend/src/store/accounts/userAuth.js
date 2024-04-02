@@ -33,12 +33,16 @@ export const logoutCustomer = (token) => {
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
       const config = {
+        method: 'POST',
         headers: {
+          'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`
-        }
+        },
       };
 
-      const { data: { message } } = await axios.post(`${API_URL}${API_LOGOUT}`, null, config);
+      const response = await fetch(`${API_URL}${API_LOGOUT}`, config);
+      const { message } = await response.json();
+
       // Assuming the response contains logout success message or any other relevant data
       dispatch(logoutCustomerSuccess());
       dispatch(addNotification({
@@ -76,7 +80,17 @@ export const saveCustomer = (customerData) => {
     try {
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      const { data: { user, access_token } } = await axios.post(`${API_URL}${API_REGISTER}`, customerData);
+      const config = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(customerData)
+      };
+
+      const response = await fetch(`${API_URL}${API_REGISTER}`, config);
+      const { data: { user, access_token } } = await response.json();
+
       // Assuming the response contains the saved customer data + token
 
       dispatch(saveCustomerSuccess(user));
@@ -116,8 +130,16 @@ export const loginCustomer = (formData) => {
     try {
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      const response = await axios.post(`${API_URL}${API_LOGIN}`, formData);
-      const { user, access_token } = response.data;
+      const config = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+      };
+
+      const response = await fetch(`${API_URL}${API_LOGIN}`, config);
+      const { user, access_token } = await response.json();
 
       dispatch(saveCustomerSuccess(user));
       dispatch(setProfileToken(access_token));
