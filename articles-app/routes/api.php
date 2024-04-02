@@ -15,12 +15,15 @@ use App\Http\Controllers\Auth\AuthController;
 |
 */
 
-Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/user', [AuthController::class, 'user']);
-    Route::post('/customer/logout', [AuthController::class, 'logout']);
-    Route::put('/customer/update', [AuthController::class, 'update']);
+Route::middleware('throttle:api')->group(function() {
+    Route::middleware('auth:sanctum')->group(function() {
+        Route::get('/user', [AuthController::class, 'user']);
+        Route::post('/customer/logout', [AuthController::class, 'logout']);
+        Route::put('/customer/update', [AuthController::class, 'update']);
+    });
+
+    Route::post('/customer/login', [AuthController::class, 'login']);
+    Route::post('/customer/register', [AuthController::class, 'register']);
 });
 
-Route::post('/customer/login', [AuthController::class, 'login']);
-Route::post('/customer/register', [AuthController::class, 'register']);
-Route::get('/{apiType}/articles', [ArticlesController::class, 'index']);
+Route::middleware('throttle:articles')->get('/{apiType}/articles', [ArticlesController::class, 'index']);
